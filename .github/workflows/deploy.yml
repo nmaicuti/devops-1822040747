@@ -1,5 +1,4 @@
-
-name: Kiem tra va trien khai website
+name: Website CI/CD
 
 on:
   push:
@@ -9,6 +8,12 @@ on:
 
 permissions:
   contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
 
 jobs:
   check:
@@ -19,37 +24,25 @@ jobs:
       - name: Lay ma nguon
         uses: actions/checkout@v4
 
-      - name: Kiem tra cac tep bat buoc
-        shell: bash
+      - name: Kiem tra cac file bat buoc
         run: |
-          # Kiểm tra đủ ba tệp của website
-          for file in index.html style.css script.js; do
-            if [ ! -f "$file" ]; then
-              echo "LỖI: Không tìm thấy tệp $file"
-              exit 1
-            fi
-          done
-          echo "Đã tìm thấy đủ ba tệp."
+          test -f index.html || { echo "LỖI: Thiếu index.html"; exit 1; }
+          test -f style.css || { echo "LỖI: Thiếu style.css"; exit 1; }
+          test -f script.js || { echo "LỖI: Thiếu script.js"; exit 1; }
 
       - name: Kiem tra the title
-        shell: bash
         run: |
-          # Kiểm tra thẻ title có nội dung trong index.html
-          if ! grep -Eiq '<title[^>]*>[^<]+</title>' index.html; then
+          if grep -Eiq '<title[^>]*>[^<]+</title>' index.html; then
+            echo "OK: Da tim thay the title."
+          else
             echo "LỖI: index.html chưa có thẻ title hợp lệ."
             exit 1
           fi
-          echo "Thẻ title hợp lệ."
 
   deploy:
     name: Trien khai GitHub Pages
-    runs-on: ubuntu-latest
     needs: check
-
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
+    runs-on: ubuntu-latest
 
     environment:
       name: github-pages
@@ -63,10 +56,10 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Dong goi website
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
           path: .
 
-      - name: Xuat ban website
+      - name: Trien khai website
         id: deployment
         uses: actions/deploy-pages@v4

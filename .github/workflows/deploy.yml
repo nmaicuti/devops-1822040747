@@ -1,0 +1,72 @@
+
+name: Kiem tra va trien khai website
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Kiem tra ma nguon
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Lay ma nguon
+        uses: actions/checkout@v4
+
+      - name: Kiem tra cac tep bat buoc
+        shell: bash
+        run: |
+          # Kiểm tra đủ ba tệp của website
+          for file in index.html style.css script.js; do
+            if [ ! -f "$file" ]; then
+              echo "LỖI: Không tìm thấy tệp $file"
+              exit 1
+            fi
+          done
+          echo "Đã tìm thấy đủ ba tệp."
+
+      - name: Kiem tra the title
+        shell: bash
+        run: |
+          # Kiểm tra thẻ title có nội dung trong index.html
+          if ! grep -Eiq '<title[^>]*>[^<]+</title>' index.html; then
+            echo "LỖI: index.html chưa có thẻ title hợp lệ."
+            exit 1
+          fi
+          echo "Thẻ title hợp lệ."
+
+  deploy:
+    name: Trien khai GitHub Pages
+    runs-on: ubuntu-latest
+    needs: check
+
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Lay ma nguon
+        uses: actions/checkout@v4
+
+      - name: Cau hinh GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Dong goi website
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: .
+
+      - name: Xuat ban website
+        id: deployment
+        uses: actions/deploy-pages@v4

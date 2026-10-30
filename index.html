@@ -4,73 +4,546 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hồ sơ sinh viên - Nguyễn Ngọc Mai</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+
+    <meta name="description" content="REVIEWVERSE - Khám phá thời trang và đánh giá sản phẩm từ cộng đồng.">
+
+    <meta name="author" content="Nguyễn Ngọc Mai - 1822040747">
+
+    <title>REVIEWVERSE | Nguyễn Ngọc Mai - 1822040747</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+<script src="js/data.js" defer></script>
+<script src="js/storage.js" defer></script>
+<script src="js/session.js" defer></script>
+<script src="js/app.js" defer></script>
 </head>
+
 <body>
-    <header class="hero">
+
+<!-- HEADER -->
+
+<!-- HEADER -->
+<header class="header">
+
+    <a href="#home" class="logo">
+        REVIEW<span>VERSE.</span>
+    </a>
+
+    <nav class="navigation" id="navigation">
+        <a href="#home">Trang chủ</a>
+        <a href="#products">Sản phẩm</a>
+        <a href="#reviews">Đánh giá</a>
+        <a href="#about">Về chúng tôi</a>
+    </nav>
+
+    <div class="header-right">
+
+        <a href="#reviews" class="header-action">
+            Viết đánh giá ↗
+        </a>
+
+        <!-- ĐĂNG NHẬP / TÀI KHOẢN -->
+        <div class="auth-navigation" id="auth-navigation">
+            <a href="login.html" class="login-link">
+                ĐĂNG NHẬP
+            </a>
+        </div>
+
+    </div>
+
+    <button
+        class="menu-toggle"
+        id="menu-toggle"
+        type="button"
+        aria-label="Mở menu"
+    >
+        ☰
+    </button>
+
+</header>
+
+
+<main>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+
         <div class="hero-content">
-            <p class="eyebrow">TRANG GIỚI THIỆU CÁ NHÂN</p>
-            <h1>Nguyễn Ngọc Mai - 1822040747</h1>
-            <p class="subtitle">
-                Học tập, sáng tạo và phát triển cùng công nghệ.
+            <p class="eyebrow">THE FASHION REVIEW COMMUNITY</p>
+
+            <h1>
+                Style is personal.<br>
+                <em>Opinions are powerful.</em>
+            </h1>
+
+            <p class="hero-description">
+                Khám phá phong cách của bạn qua những trải nghiệm
+                thời trang chân thật từ cộng đồng.
             </p>
-            <span class="status" id="website-status">
-                Website đang hoạt động - Ver 2.0
+
+            <a href="#products" class="primary-button">
+                Khám phá bộ sưu tập ↗
+            </a>
+
+            <div class="hero-note">
+                CURATED FASHION · HONEST REVIEWS · BETTER CHOICES
+            </div>
+        </div>
+
+        <div class="hero-image">
+            <img
+                src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1000&auto=format&fit=crop&q=85"
+                alt="Bộ sưu tập thời trang"
+            >
+
+            <div class="floating-note">
+                <span>✦</span>
+
+                <div>
+                    <strong>Wear your story.</strong>
+                    <small>Discover your own style.</small>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- INTRODUCTION -->
+    <section class="intro-strip" id="about">
+
+        <div>
+            <span class="section-label">OUR PHILOSOPHY</span>
+
+            <h2>
+                More than fashion.<br>
+                <em>A community of opinions.</em>
+            </h2>
+        </div>
+
+        <p>
+            REVIEWVERSE là nơi bạn khám phá sản phẩm thời trang,
+            chia sẻ trải nghiệm và tham khảo những đánh giá
+            từ những người yêu thời trang.
+        </p>
+
+    </section>
+
+    <!-- PRODUCTS -->
+    <section class="products-section" id="products">
+
+        <div class="section-heading">
+            <div>
+                <span class="section-label">EXPLORE THE COLLECTION</span>
+                <h2>Curated <em>for you.</em></h2>
+            </div>
+
+            <span class="product-total" id="product-total">
+                0 PRODUCTS
             </span>
         </div>
-    </header>
 
-    <main class="container">
-        <section class="profile-card">
-            <div class="section-heading">
-                <span class="number">01</span>
-                <h2>Giới thiệu</h2>
+        <!-- SEARCH AND CATEGORY -->
+        <div class="product-toolbar">
+
+            <div class="category-tabs" id="category-tabs">
+                <button class="category-btn active" data-category="all">
+                    Tất cả
+                </button>
+
+                <button class="category-btn" data-category="shirt">
+                    Áo
+                </button>
+
+                <button class="category-btn" data-category="pants">
+                    Quần
+                </button>
+
+                <button class="category-btn" data-category="accessory">
+                    Phụ kiện
+                </button>
             </div>
+
+            <input
+                type="search"
+                id="search-input"
+                placeholder="Tìm kiếm sản phẩm..."
+                aria-label="Tìm sản phẩm"
+            >
+
+        </div>
+
+        <!-- PRODUCT LIST -->
+        <div class="product-grid" id="product-grid">
+            <!-- JavaScript hiển thị sản phẩm -->
+        </div>
+
+    </section>
+
+    <!-- REVIEW BANNER -->
+    <section class="review-banner">
+
+        <div>
+            <span class="section-label">
+                REAL PEOPLE. REAL EXPERIENCES.
+            </span>
+
+            <h2>
+                Every review<br>
+                tells a <em>story.</em>
+            </h2>
+
             <p>
-                Đây là website thực hành quy trình CI/CD sử dụng
-                GitHub Actions để kiểm tra mã nguồn và GitHub Pages
-                để xuất bản website tự động.
+                Chia sẻ cảm nhận của bạn để giúp cộng đồng lựa chọn tốt hơn.
             </p>
-        </section>
 
-        <section class="profile-card">
-            <div class="section-heading">
-                <span class="number">02</span>
-                <h2>Quy trình triển khai</h2>
+            <a href="#reviews" class="light-button">
+                Khám phá đánh giá ↗
+            </a>
+        </div>
+
+        <div class="banner-symbol">
+            R<span>.</span>
+        </div>
+
+    </section>
+
+    <!-- REVIEWS -->
+    <section class="reviews-section" id="reviews">
+
+        <div class="section-heading">
+            <div>
+                <span class="section-label">THE COMMUNITY VOICE</span>
+                <h2>Honest <em>reviews.</em></h2>
             </div>
 
-            <div class="steps">
-                <div class="step">
-                    <span>01</span>
-                    <h3>Xây dựng</h3>
-                    <p>Viết HTML, CSS và JavaScript.</p>
+            <span class="review-total" id="review-total">
+                0 REVIEWS
+            </span>
+        </div>
+
+        <div class="review-layout">
+
+            <!-- RATING SUMMARY -->
+            <aside class="rating-summary">
+
+                <span class="section-label">
+                    COMMUNITY RATING
+                </span>
+
+                <div class="average-score" id="average-score">
+                    0.0
                 </div>
-                <div class="step">
-                    <span>02</span>
-                    <h3>Kiểm tra</h3>
-                    <p>Tự động phát hiện lỗi cơ bản.</p>
+
+                <div class="average-stars" id="average-stars">
+                    ☆☆☆☆☆
                 </div>
-                <div class="step">
-                    <span>03</span>
-                    <h3>Xuất bản</h3>
-                    <p>Đưa website lên GitHub Pages.</p>
-                </div>
+
+                <p id="average-count">
+                    Chưa có đánh giá
+                </p>
+
+                <div
+                    class="rating-breakdown"
+                    id="rating-breakdown"
+                ></div>
+
+            </aside>
+
+            <!-- REVIEW FORM -->
+            <div class="review-form-card">
+
+                <span class="section-label">
+                    SHARE YOUR EXPERIENCE
+                </span>
+
+                <h3>Viết đánh giá của bạn.</h3>
+
+                <form id="review-form">
+
+                    <label for="review-product">
+                        Sản phẩm
+                    </label>
+
+                    <select
+                        id="review-product"
+                        name="productId"
+                        required
+                    >
+                        <option value="">
+                            -- Chọn sản phẩm --
+                        </option>
+                    </select>
+
+                    <label for="review-name">
+                        Tên của bạn
+                    </label>
+
+                    <input
+                        id="review-name"
+                        name="name"
+                        type="text"
+                        maxlength="40"
+                        placeholder="Nhập tên của bạn"
+                        required
+                    >
+
+                    <label>
+                        Đánh giá chất lượng
+                    </label>
+
+                    <div class="star-input">
+
+                        <input
+                            type="radio"
+                            id="star5"
+                            name="rating"
+                            value="5"
+                            required
+                        >
+                        <label for="star5">★</label>
+
+                        <input
+                            type="radio"
+                            id="star4"
+                            name="rating"
+                            value="4"
+                        >
+                        <label for="star4">★</label>
+
+                        <input
+                            type="radio"
+                            id="star3"
+                            name="rating"
+                            value="3"
+                        >
+                        <label for="star3">★</label>
+
+                        <input
+                            type="radio"
+                            id="star2"
+                            name="rating"
+                            value="2"
+                        >
+                        <label for="star2">★</label>
+
+                        <input
+                            type="radio"
+                            id="star1"
+                            name="rating"
+                            value="1"
+                        >
+                        <label for="star1">★</label>
+
+                    </div>
+
+                    <p class="rating-hint" id="rating-hint">
+                        Chọn số sao bạn muốn đánh giá.
+                    </p>
+
+                    <label for="review-content">
+                        Nhận xét của bạn
+                    </label>
+
+                    <textarea
+                        id="review-content"
+                        name="content"
+                        rows="4"
+                        maxlength="500"
+                        placeholder="Chia sẻ về chất liệu, form dáng, chất lượng..."
+                        required
+                    ></textarea>
+
+                    <div
+                        class="character-count"
+                        id="character-count"
+                    >
+                        0/500
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="primary-button submit-button"
+                    >
+                        Gửi đánh giá ↗
+                    </button>
+
+                    <p
+                        class="form-message"
+                        id="form-message"
+                        role="status"
+                    ></p>
+
+                </form>
+
             </div>
 
-            <button id="version-button" type="button">
-                Xem thông tin phiên bản
+        </div>
+
+        <!-- REVIEW LIST HEADER -->
+        <div class="review-list-header">
+
+            <div>
+                <span class="section-label">
+                    COMMUNITY WALL
+                </span>
+
+                <h3>What people are saying.</h3>
+            </div>
+
+            <div class="review-filters">
+
+                <select
+                    id="review-filter"
+                    aria-label="Lọc theo số sao"
+                >
+                    <option value="all">
+                        Tất cả đánh giá
+                    </option>
+
+                    <option value="5">5 sao</option>
+                    <option value="4">4 sao</option>
+                    <option value="3">3 sao</option>
+                    <option value="2">2 sao</option>
+                    <option value="1">1 sao</option>
+                </select>
+
+                <select
+                    id="review-sort"
+                    aria-label="Sắp xếp đánh giá"
+                >
+                    <option value="newest">
+                        Mới nhất
+                    </option>
+
+                    <option value="highest">
+                        Điểm cao nhất
+                    </option>
+
+                    <option value="lowest">
+                        Điểm thấp nhất
+                    </option>
+
+                    <option value="helpful">
+                        Hữu ích nhất
+                    </option>
+                </select>
+
+            </div>
+
+        </div>
+
+        <!-- REVIEW LIST -->
+        <div class="review-list" id="review-list">
+
+            <div class="empty-state">
+                Chưa có đánh giá nào. Hãy là người đầu tiên!
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+
+    <a href="#home" class="logo">
+        REVIEW<span>VERSE.</span>
+    </a>
+
+    <p>
+        Fashion is what you buy. Style is what you do with it.
+    </p>
+
+    <div class="author-info">
+        <p>
+            Developed by:
+            <strong>NGUYỄN NGỌC MAI</strong>
+        </p>
+
+        <p>
+            Student ID:
+            <strong>1822040747</strong>
+        </p>
+    </div>
+
+    <small>
+        © 2026 REVIEWVERSE · FASHION REVIEW PLATFORM
+    </small>
+
+</footer>
+
+<!-- PRODUCT DETAIL MODAL -->
+<div
+    class="modal"
+    id="product-modal"
+    aria-hidden="true"
+>
+
+    <div
+        class="modal-backdrop"
+        id="modal-backdrop"
+    ></div>
+
+    <div
+        class="modal-content"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-name"
+    >
+
+        <button
+            class="modal-close"
+            id="modal-close"
+            aria-label="Đóng"
+        >
+            ×
+        </button>
+
+        <img
+            id="modal-image"
+            src=""
+            alt="Ảnh sản phẩm"
+        >
+
+        <div class="modal-info">
+
+            <span class="section-label">
+                PRODUCT DETAILS
+            </span>
+
+            <h2 id="modal-name"></h2>
+
+            <p
+                class="modal-price"
+                id="modal-price"
+            ></p>
+
+            <div
+                class="modal-rating"
+                id="modal-rating"
+            ></div>
+
+            <p id="modal-description"></p>
+
+            <button
+                class="primary-button"
+                id="modal-review-button"
+            >
+                Viết đánh giá ↗
             </button>
-            <p id="version-info" aria-live="polite">
-                Phiên bản 2.0 - Bản cập nhật mới nhất
-            </p>
-        </section>
-    </main>
 
-    <footer>
-        <p>Nguyễn Ngọc Mai · MSSV 1822040747</p>
-        <p>Thực hành CI/CD với GitHub Actions</p>
-    </footer>
+        </div>
+
+    </div>
+
+</div>
+
 </body>
 </html>

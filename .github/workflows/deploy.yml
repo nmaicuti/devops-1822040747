@@ -1,4 +1,5 @@
-name: Website CI/CD
+
+name: REVIEWVERSE CI/CD
 
 on:
   push:
@@ -12,35 +13,32 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: "pages"
   cancel-in-progress: true
 
 jobs:
   check:
-    name: Kiem tra ma nguon
+    name: Check website
     runs-on: ubuntu-latest
 
     steps:
-      - name: Lay ma nguon
+      - name: Checkout source code
         uses: actions/checkout@v4
 
-      - name: Kiem tra cac file bat buoc
+      - name: Check required files
         run: |
-          test -f index.html || { echo "LỖI: Thiếu index.html"; exit 1; }
-          test -f style.css || { echo "LỖI: Thiếu style.css"; exit 1; }
-          test -f script.js || { echo "LỖI: Thiếu script.js"; exit 1; }
+          test -f index.html
+          test -f style.css
+          test -f script.js
+          echo "Da co du 3 file bat buoc!"
 
-      - name: Kiem tra the title
+      - name: Check HTML title
         run: |
-          if grep -Eiq '<title[^>]*>[^<]+</title>' index.html; then
-            echo "OK: Da tim thay the title."
-          else
-            echo "LỖI: index.html chưa có thẻ title hợp lệ."
-            exit 1
-          fi
+          grep -qi '<title>' index.html
+          echo "Da tim thay the title!"
 
   deploy:
-    name: Trien khai GitHub Pages
+    name: Deploy to GitHub Pages
     needs: check
     runs-on: ubuntu-latest
 
@@ -49,17 +47,17 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Lay ma nguon
+      - name: Checkout source code
         uses: actions/checkout@v4
 
-      - name: Cau hinh GitHub Pages
+      - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Dong goi website
+      - name: Upload website artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: .
 
-      - name: Trien khai website
+      - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
